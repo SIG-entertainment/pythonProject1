@@ -1,7 +1,7 @@
 from django.db import models
 
 class Product(models.Model):
-    name = models.CharField(max_length=255, default="NAME")
+    name = models.CharField(max_length=255)
     price = models.FloatField(default=0.0)
     composition = models.TextField(default='Состав не указан')
 
@@ -19,7 +19,7 @@ POSITIONS = [
     (cleaner, 'Уборщик')
 ]
 class Staff(models.Model):
-    full_name = models.CharField(max_length=255, default='NAME')
+    full_name = models.CharField(max_length=255)
     position = models.CharField(max_length=2,
                                 choices=POSITIONS,
                                 default=cashier)
