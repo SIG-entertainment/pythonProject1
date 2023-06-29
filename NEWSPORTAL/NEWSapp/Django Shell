@@ -70,7 +70,9 @@ Author.objects.order_by('-ratingAuthor')[:1].values('authorUser__username', 'rat
 
 Post.objects.order_by('-rating')[:1].values('author__authorUser__username', 'rating', 'title', 'dateCreation')
 
-Comment.objects.order_by('commentPost__id').values('dateCreation', 'rating', 'text', 'commentUser__username')
+
+Post.objects.order_by('-rating')[0].comment_set.all().values('text', 'dateCreation', 'commentUser', 'rating')
+
 
 
 
