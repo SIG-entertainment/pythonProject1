@@ -1,0 +1,76 @@
+u1 = User.objects.create_user(username='Ivan')
+
+u2 = User.objects.create_user(username='Petr')
+
+Author.objects.create(authorUser=u1)
+
+Author.objects.create(authorUser=u2)
+
+Category.objects.create(name='Development')
+
+Category.objects.create(name='PopNews')
+
+Category.objects.create(name='Politic')
+
+Category.objects.create(name='Nature')
+
+Post.objects.create(author=author, categoryType='AR', title='SOMETITLE', text='SOMETEXT')
+
+Post.objects.create(author=author, categoryType='NW', title='ANYTITLE', text='SOMETEXT')
+
+Post.objects.create(author=author2, categoryType='NW', title='ANYTITLE', text='SOMETEXT')
+
+Post.objects.create(author=author2, categoryType='AR', title='ANYTITLE', text='ANYTEXT')
+
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=2))
+
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=3))
+
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=4))
+
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='CommentText')
+
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=2).authorUser, text='CommentText')
+
+Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=2).authorUser, text='CommentText')
+
+Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=1).authorUser, text='CommentText')
+
+Comment.objects.create(commentPost=Post.objects.get(id=3), commentUser=Author.objects.get(id=1).authorUser, text='CommentText')
+
+Comment.objects.create(commentPost=Post.objects.get(id=4), commentUser=Author.objects.get(id=1).authorUser, text='CommentText')
+
+Comment.objects.get(id=1).like()
+
+Comment.objects.get(id=2).like()
+
+Post.objects.get(id=1).dislike()
+
+Comment.objects.get(id=2).rating()
+
+a = Author.objects.get(id=1)
+
+a.update_rating()
+
+b = Author.objects.get(id=2)
+
+b.update_rating()
+
+Post.objects.get(id=2).dislike()
+
+Post.objects.get(id=3).dislike()
+
+Post.objects.get(id=4).dislike()
+
+Post.objects.get(id=3).like()
+
+Author.objects.order_by('-ratingAuthor')[:1].values('authorUser__username', 'ratingAuthor')
+
+Post.objects.order_by('-rating')[:1].values('author__authorUser__username', 'rating', 'title', 'dateCreation')
+
+Comment.objects.order_by('commentPost__id').values('dateCreation', 'rating', 'text', 'commentUser__username')
+
+
+
