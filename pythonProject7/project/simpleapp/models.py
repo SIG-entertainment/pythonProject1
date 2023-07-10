@@ -22,7 +22,7 @@ class Product(models.Model):
         validators=[MinValueValidator(0.0)],
     )
 
-    def str(self):
+    def __str__(self):
         return f'{self.name.title()}: {self.description[:20]}'
 
 
@@ -31,5 +31,5 @@ class Category(models.Model):
     # названия категорий тоже не должны повторяться
     name = models.CharField(max_length=100, unique=True)
 
-    def str(self):
+    def __str__(self):
         return self.name.title()
