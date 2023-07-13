@@ -1,0 +1,13 @@
+{% extends 'NewsApp/default.html' %}
+
+{% load my_filter %}
+
+{% block content %}
+  <h2>Список новостей</h2>
+  <ul>
+    {% for author in Authors %}
+        <h3>{{ author.authorUser.username|censor }}</h3>
+        <p>{{ author.ratingAuthor}}</p>
+    {% endfor %}
+  </ul>
+{% endblock %}

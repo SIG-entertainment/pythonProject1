@@ -1,0 +1,10 @@
+{% extends 'NewsApp/default.html' %}
+
+{% load my_filter %}
+{% block content %}
+
+<p>{{ Post.author }}<p/>
+<p>{{ Post.title|censor }}<p/>
+<p>{{ Post.text|censor }}<p/>
+<p>{{ Post.real_time}}</p>
+{% endblock %}

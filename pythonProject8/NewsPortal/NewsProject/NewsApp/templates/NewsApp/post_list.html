@@ -1,0 +1,14 @@
+{% extends 'NewsApp/default.html' %}
+
+{% load my_filter %}
+
+{% block content %}
+  <h2>Список новостей</h2>
+  <ul>
+    {% for post in Posts %}
+        <p><h3>{{ post.title|censor }}</h3>></p>
+        <p>{{ post.dateCreation}}</p>
+        <p>{{ post.text|censor|truncatechars:20 }}</p>
+    {% endfor %}
+  </ul>
+{% endblock %}
