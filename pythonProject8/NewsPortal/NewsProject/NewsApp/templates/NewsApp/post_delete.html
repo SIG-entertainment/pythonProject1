@@ -1,0 +1,13 @@
+{% extends 'NewsApp/default.html' %}
+{% block content %}
+
+<h1>Delete News</h1>
+
+<hr>
+<form action="" method="post">
+  {% csrf_token %}
+  <p>Delete this obj "{{ object.title }}"?</p>
+  <input type="submit" value="Delete" />
+</form>
+
+{% endblock content %}
