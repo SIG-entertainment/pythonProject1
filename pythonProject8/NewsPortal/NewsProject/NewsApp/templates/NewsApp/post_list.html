@@ -7,15 +7,49 @@
 {%  endblock title %}
 {% block content %}
  <h3>Список новостей</h3>
+{% if perms.NewsApp.create_news %}
+<a href="{% url 'create_news' %}">Create News</a>
+{% endif %}
+
+{% if Posts %}
+<table>
+    <tr>
+        <td>Title</td>
+        <td>Date Creation</td>
+        <td>Part Text</td>
+
+        {% if perms.NewsApp.edit_news or perms.NewsApp.delete_news or perms.NewsApp.edit_article or perms.NewsApp.edit_article %}
+        <td>Actions</td>
+        {% endif %}
+    </tr>
 
   <ul>
     {% for post in Posts %}
-        <p><h3>{{ post.title|censor }}</h3>></p>
-        <p>{{ post.dateCreation}}</p>
-        <p>{{ post.text|censor|truncatechars:20 }}</p>
+      <tr>
+        <td><h3>{{ post.title|censor }}</h3>></td>
+        <td>{{ post.dateCreation}}</td>
+        <td>{{ post.text|censor|truncatechars:20 }}</td>
+      <td>
+          {% if perms.NewsApp.edit_news %}
+          <a href="{% url 'edit_news' pk=post.id %}">Change</a> </td>
+          {% endif %}
+<!--      {% if perms.NewsApp.edit_article %}-->
+<!--      <a href="{% url 'edit_article' pk=post.id %}">Change</a> </td>-->
+<!--      {% endif %}-->
+      <td>
+      {% if perms.NewsApp.delete_news %}
+      <a href="{% url 'delete_news' pk=post.id %}">Delete</a> </td>
+      {% endif %}
+<!--      {% if perms.NewsApp.delete_article %}-->
+<!--      <a href="{% url 'delete_article' pk=post.id %}">Delete</a> </td>-->
+<!--      {% endif %}-->
+</tr>
     {% endfor %}
   </ul>
-
+</table>
+{% else %}
+<h2>No NEWS!</h2>
+{% endif %}
 {% if page_obj.has_previous %}
     <a href="?page=1">1</a>
     {% if page_obj.previous_page_nuber != 1 %}
