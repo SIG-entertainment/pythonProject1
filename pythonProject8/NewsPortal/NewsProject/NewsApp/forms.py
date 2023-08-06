@@ -2,6 +2,7 @@ from django import forms
 from .models import Post
 from django.core.exceptions import ValidationError
 
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -15,6 +16,8 @@ class PostForm(forms.ModelForm):
                 "title": "Title can't be longer than 140 characters"
             })
         return cleaned_data
+
+
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Post

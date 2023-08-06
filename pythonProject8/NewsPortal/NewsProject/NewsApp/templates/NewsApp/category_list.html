@@ -6,28 +6,30 @@
   <h2>Список новостей</h2>
 {%  endblock title %}
 {% block content %}
+{% if  is_not_subscriber  %}
+<p class="text-center"><a href="{% url 'subscribe' category.id  %}"class="btn btn-secondary btn-sm">Subscribe</a></p>
+{% endif %}
  <h3>Список новостей</h3>
 {% if perms.NewsApp.create_news %}
 <a href="{% url 'create_news' %}">Create News</a>
 {% endif %}
 
-{% if Posts %}
+{% if category_news_list %}
 <table>
     <tr>
         <td>Title</td>
         <td>Date Creation</td>
         <td>Part Text</td>
+        <td>Category</td>
 
 
         {% if perms.NewsApp.edit_news or perms.NewsApp.delete_news or perms.NewsApp.edit_article or perms.NewsApp.edit_article %}
         <td>Actions</td>
-
-        <td>Category</td>
         {% endif %}
     </tr>
 
   <ul>
-    {% for post in Posts %}
+    {% for post in category_news_list %}
       <tr>
         <td><h3>{{ post.title|censor }}</h3>></td>
         <td>{{ post.dateCreation}}</td>
@@ -36,7 +38,11 @@
           {% if perms.NewsApp.edit_news %}
           <a href="{% url 'edit_news' pk=post.id %}">Change</a> </td>
           {% endif %}
-
+        <td>
+          {% for category in post.category.all %}
+            <a href="{% url 'category_list' pk=category.id %}">{{ category }}</a>
+          {% endfor %}
+        </td>
 <!--      {% if perms.NewsApp.edit_article %}-->
 <!--      <a href="{% url 'edit_article' pk=post.id %}">Change</a> </td>-->
 <!--      {% endif %}-->
@@ -44,12 +50,6 @@
       {% if perms.NewsApp.delete_news %}
       <a href="{% url 'delete_news' pk=post.id %}">Delete</a> </td>
       {% endif %}
-           <td>
-          {% for category in post.category.all %}
-            <a href="{% url 'category_list' pk=category.id %}">{{ category }}</a>
-          {% endfor %}
-        </td>
-          <td>{{ post.postCategory.name }}</td>
 <!--      {% if perms.NewsApp.delete_article %}-->
 <!--      <a href="{% url 'delete_article' pk=post.id %}">Delete</a> </td>-->
 <!--      {% endif %}-->

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'NewsApp',
+    'NewsApp.apps.NewsAppConfig',
     'django.contrib.flatpages',
     'django.contrib.sites',
     'django_filters',
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignUpForm'}
 
@@ -149,3 +150,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'lupene'
+EMAIL_HOST_PASSWORD = 'itikklalbmdkegdy'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = 'lupene@yandex.ru'
+
+SITE_URL = 'http://127.0.0.8000'
+SERVER_EMAIL = 'lupene@yandex.ru'
+MANAGERS = (
+    ('Ivan', 'lupene@yandex.ru'),
+)
+
+APSCHEDULER_DATETIME_FORMAT = 'N j, Y, f:s a'
+
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
